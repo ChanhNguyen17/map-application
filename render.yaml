@@ -1,5 +1,6 @@
 services:
   - name: backend
+    type: web
     buildCommand: |
       pip install -r requirements.txt
       python manage.py migrate
@@ -26,6 +27,7 @@ services:
     useDocker: true
 
   - name: frontend
+    type: web
     buildCommand: |
       # Add any build commands needed for your frontend here
     buildDirectory: ./frontend
@@ -37,6 +39,7 @@ services:
     useDocker: true
 
   - name: postgres
+    type: postgres
     buildCommand: |
       # Add any build commands needed for your PostgreSQL database here
     env:
@@ -46,5 +49,6 @@ services:
     useDocker: true
 
   - name: render-host
+    type: env
     env:
       - DJANGO_SECRET_KEY
