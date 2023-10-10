@@ -84,7 +84,10 @@ The application includes an admin interface that allows administrators to manage
 
 ## Testing
 
-You can run tests for both the frontend and backend of the application. 
+- Backend Tests:
+```bash
+docker exec -it backend-container python manage.py test
+```
 
 ## Deployment
 
