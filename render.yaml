@@ -47,8 +47,3 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     useDocker: true
-
-  - name: render-host
-    type: env
-    env:
-      - DJANGO_SECRET_KEY
