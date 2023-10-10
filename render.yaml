@@ -39,7 +39,7 @@ services:
     useDocker: true
 
   - name: postgres
-    type: postgres
+    type: pserv
     buildCommand: |
       # Add any build commands needed for your PostgreSQL database here
     env:
