@@ -1,49 +1,37 @@
+databases:
+  - name: db
+    databaseName: map_app_db
+    user: postgres
+
 services:
   - name: backend
     type: web
+    rootDir: backend
     buildCommand: |
       pip install -r requirements.txt
       python manage.py migrate
       python manage.py loaddata dumpdata.json
+    startCommand: |
       python manage.py runserver 0.0.0.0:8000
-    buildDirectory: ./backend
-    env:
-      - DEBUG=True
-      - DB_NAME=map_app_db
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
     envVars:
-      - key: DJANGO_SECRET_KEY
-        generateValue:
-          length: 50
-    envVarsFrom:
-      - name: postgres
-        vars:
-          - POSTGRES_DB
-          - POSTGRES_USER
-          - POSTGRES_PASSWORD
-    ports:
-      - 8000
-    useDocker: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: True
+      - key: DB_NAME
+        value: map_app_db
+      - key: DB_USER
+        value: postgres
+      - key: DB_PASSWORD
+        value: postgres
 
   - name: frontend
     type: web
-    buildCommand: |
-      # Add any build commands needed for your frontend here
-    buildDirectory: ./frontend
-    env:
-      - API_URL=http://backend:8000
-    routes:
-      - path: /*
-        type: rewrite
-    useDocker: true
-
-  - name: postgres
-    type: pserv
-    buildCommand: |
-      # Add any build commands needed for your PostgreSQL database here
-    env:
-      - POSTGRES_DB=map_app_db
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    useDocker: true
+    rootDir: frontend
+    envVars:
+      - key: API_URL
+        value: http://localhost:8000
