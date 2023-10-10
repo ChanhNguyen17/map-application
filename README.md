@@ -30,7 +30,7 @@ Before you can run the application using `docker-compose`, you should have the f
 
 2. Change your working directory to the project folder.
 ```bash
-cd map-application 
+cd map-application
 ```
 
 3. Start the application using `docker-compose`.
