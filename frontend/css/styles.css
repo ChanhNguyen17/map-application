@@ -1,0 +1,107 @@
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container Styles */
+.form-container {
+    width: 320px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Form Styles */
+.form {
+    display: none; /* Initially hide both forms */
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Button Styles */
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.button-groups {
+    margin-top: 20px;
+}
+
+/* Active Button Styles */
+#login-button.active,
+#register-button.active {
+    background-color: #0056b3;
+}
+
+/* Header Styles */
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Switch Buttons Styles */
+.switch-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.switch-button {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.switch-button:hover {
+    color: #0056b3;
+}
+
+/* Center the Container on Larger Screens */
+@media (min-width: 768px) {
+    .form-container {
+        width: 400px;
+    }
+}

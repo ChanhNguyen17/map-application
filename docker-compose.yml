@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  backend:
+    image: python:3.10
+    container_name: backend-container
+    working_dir: /app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - DEBUG=True
+      - DB_NAME=map_app_db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+    command:
+      sh -c "
+      pip install -r requirements.txt && 
+      python manage.py migrate && 
+      python manage.py loaddata dumpdata.json && 
+      python manage.py runserver 0.0.0.0:8000
+      "
+    networks:
+      - my-network
+    depends_on:
+      - db
+
+  frontend:
+    image: nginx:latest
+    container_name: frontend-container
+    ports:
+      - "8080:80"  # Map container port 80 to host port 8080
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    environment:
+      - API_URL=http://localhost:8000
+    networks:
+      - my-network
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:latest
+    container_name: postgres-db-container
+    environment:
+      - POSTGRES_DB=map_app_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - my-network
+
+networks:
+  my-network:
